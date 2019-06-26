@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import SeasonDisplay from './SeasonDisplay';
+import Loader from './Loader';
 
 
 class App extends Component{
@@ -27,7 +28,7 @@ class App extends Component{
             return <SeasonDisplay lat={this.state.lat} />
         }
 
-        return <i className="notched circle loading icon"></i>
+        return <Loader/>
 
     }
 }
