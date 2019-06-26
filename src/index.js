@@ -7,7 +7,8 @@ class App extends Component{
         super(props);
     
         this.state =  {
-            lat:null
+            lat:null,
+            errorMessage:"",
         };
 
         window.navigator.geolocation.getCurrentPosition(
@@ -15,14 +16,23 @@ class App extends Component{
                 this.setState({lat:position.coords.latitude})
                 console.log(position)
             },
-            (err) => console.log(err, "failed")
+            (err) => {
+                this.setState({errorMessage:err.message})
+            }
         );
     }
 
     render(){
-        return(
-            <div>Lat: {this.state.lat}</div>
-        )
+        
+        if(this.state.errorMessage && !this.state.lat){
+            return <div>Error: {this.state.errorMessage}</div>
+        }
+
+        if(!this.state.errorMessage && this.state.lat){
+            return <div> Lat: {this.state.lat}</div>
+        }
+
+        return <div>Loading</div>
     }
 }
 
